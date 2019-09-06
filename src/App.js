@@ -51,26 +51,36 @@ class App extends Component {
   
 
   handleDeleteCard(id){
+
     const {lists, allCards} = this.state;
-    const newlistsState = lists.map(list => {
 
-      return list.cardIds.filter((cardid, index) => id !== cardid[index] )
+    const filterCardIds = function(array) {
+      return array.filter((item, index) => item[index] !== id)
+    }
 
-    });
+    let newListsState = [];
+    lists.forEach((list) => {
+      let newCardIdArray = filterCardIds(list.cardIds)
+      newListsState.push(
+        {
+          ...list,
+          cardIds: newCardIdArray
+        }
+      )
+    })
+
     const deletedCard = {
       ...allCards
     }
-    delete deletedCard.id
+    delete deletedCard[id]
+
     const newallCardsState = {
-
       ...deletedCard
-
     }
-
+    
     this.setState({
-      lists: newlistsState,
+      lists: newListsState,
       allCards: newallCardsState
-
     })
   }
 
@@ -87,7 +97,7 @@ class App extends Component {
               key={list.id}
               header={list.header}
               cards={list.cardIds.map(id => this.state.allCards[id])}
-              // onClickDelete={(id)=>this.handleDeleteCard(id)}
+              onClickDelete={(id) => this.handleDeleteCard(id)}
             />
           ))}
         </div>

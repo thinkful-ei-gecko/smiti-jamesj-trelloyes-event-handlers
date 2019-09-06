@@ -3,6 +3,7 @@ import Card from './Card'
 import './List.css';
 
 export default function List(props) {
+  console.log('List has these props:', props)
   return (
     <section className='List'>
       <header className='List-header'>
@@ -15,7 +16,7 @@ export default function List(props) {
             id = {card.id}
             title={card.title}
             content={card.content}
-            // onClick = {props.onClickDelete(card.id)}
+            onClickDelete={(id) => props.onClickDelete(id)}
           />
         )}
         <button
