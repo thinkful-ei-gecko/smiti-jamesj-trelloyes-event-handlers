@@ -1,11 +1,14 @@
 import React from 'react';
 import './Card.css';
 
+
+
 export default function Card(props) {
   return (
-    <div className='Card'>
+    <div className='Card' id={props.id}>
       <button
         type='button'
+        // onClick={()=> props.handleDeleteCard(props.id)}
       >
         delete
       </button>
@@ -14,3 +17,4 @@ export default function Card(props) {
     </div>
   )
 }
+
