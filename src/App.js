@@ -89,43 +89,12 @@ class App extends Component {
 
     }));
 
-    const cards = removeCard(allCards, cardId);
+    const newCards = removeCard(allCards, cardId);
 
     this.setState({
-      list: newLists,
-      allCards: cards
+      lists: newLists,
+      allCards: newCards
     })
-
-    
-
-    // const filterCardIds = function(array) {
-    //   return array.filter((item, index) => item[index] !== id)
-    // }
-
-    // let newListsState = [];
-    // lists.forEach((list) => {
-    //   let newCardIdArray = filterCardIds(list.cardIds)
-    //   newListsState.push(
-    //     {
-    //       ...list,
-    //       cardIds: newCardIdArray
-    //     }
-    //   )
-    // })
-
-    // const deletedCard = {
-    //   ...allCards
-    // }
-    // delete deletedCard[id]
-
-    // const newallCardsState = {
-    //   ...deletedCard
-    // }
-    
-    // this.setState({
-    //   lists: newListsState,
-    //   allCards: newallCardsState
-    // })
   }
 
 
