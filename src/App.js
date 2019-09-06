@@ -71,7 +71,6 @@ class App extends Component {
   }
 
   handleRandomCard = listID => {
-    console.log('I was clicked:', listID);
     let { lists, allCards } = this.state;
     let newCard = newRandomCard();
     let newAllCards = {
@@ -106,7 +105,27 @@ class App extends Component {
   }
 
   handleDeleteCard = cardID => {
-    console.log('delete me!')
+    console.log('delete was clicked', cardID)
+    let {lists, allCards} = this.state
+    console.log('lists is:', lists)
+    let newLists = []
+    let newAllCards = { ...allCards }
+    delete newAllCards[cardID]
+    
+    lists.forEach(list => {
+      let newCardIDs = list.cardIds.filter(id => id !== cardID);
+      newLists.push(
+        {
+          ...list,
+          cardIds: newCardIDs
+        }
+      ) 
+    })
+
+    this.setState({
+      allCards: newAllCards,
+      lists: newLists
+    })
   }
 
   render() {
@@ -123,7 +142,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => this.state.allCards[id])}
               createRandomCard={(id) => this.handleRandomCard(id)}
-              deleteCard={(id) => this.handleRandomCard(id)}
+              deleteCard={(id) => this.handleDeleteCard(id)}
             />
           ))}
         </div>
