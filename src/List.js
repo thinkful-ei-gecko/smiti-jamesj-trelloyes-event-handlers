@@ -16,7 +16,7 @@ export default function List(props) {
             id = {card.id}
             title={card.title}
             content={card.content}
-            onClickDelete={(id) => props.onClickDelete(id)}
+            onClickDelete={props.onClickDelete}
           />
         )}
         <button

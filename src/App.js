@@ -2,6 +2,33 @@ import React, { Component } from 'react';
 import List from './List'
 import './App.css';
 
+// function removeCard(allCards, cardid){
+//   return Object.entries(allCards).reduce((newCards, [key, value]) =>{
+//     if(key === cardid){
+//       return newCards;
+//     }
+//     else{
+//       return {
+//         ...newCards,
+//         [key]: value
+//       }
+//     }
+//   },
+//   {}
+
+//   )
+
+// }
+
+
+function removeCard(allCards, cardId) {
+  return Object.entries(allCards).reduce(
+    (newAllCards, [key, value]) =>
+        key === cardId ? newAllCards : {...newAllCards, [key]: value},
+    {}
+  );
+}
+
 class App extends Component {
 
   constructor(){
@@ -50,43 +77,61 @@ class App extends Component {
   }
   
 
-  handleDeleteCard(id){
+  handleDeleteCard(cardId){
+
+    console.log(cardId);
 
     const {lists, allCards} = this.state;
+    const newLists = lists.map(list =>({
 
-    const filterCardIds = function(array) {
-      return array.filter((item, index) => item[index] !== id)
-    }
+      ...list,
+      cardIds: list.cardIds.filter(id => id !== cardId)
 
-    let newListsState = [];
-    lists.forEach((list) => {
-      let newCardIdArray = filterCardIds(list.cardIds)
-      newListsState.push(
-        {
-          ...list,
-          cardIds: newCardIdArray
-        }
-      )
-    })
+    }));
 
-    const deletedCard = {
-      ...allCards
-    }
-    delete deletedCard[id]
+    const cards = removeCard(allCards, cardId);
 
-    const newallCardsState = {
-      ...deletedCard
-    }
-    
     this.setState({
-      lists: newListsState,
-      allCards: newallCardsState
+      list: newLists,
+      allCards: cards
     })
+
+    
+
+    // const filterCardIds = function(array) {
+    //   return array.filter((item, index) => item[index] !== id)
+    // }
+
+    // let newListsState = [];
+    // lists.forEach((list) => {
+    //   let newCardIdArray = filterCardIds(list.cardIds)
+    //   newListsState.push(
+    //     {
+    //       ...list,
+    //       cardIds: newCardIdArray
+    //     }
+    //   )
+    // })
+
+    // const deletedCard = {
+    //   ...allCards
+    // }
+    // delete deletedCard[id]
+
+    // const newallCardsState = {
+    //   ...deletedCard
+    // }
+    
+    // this.setState({
+    //   lists: newListsState,
+    //   allCards: newallCardsState
+    // })
   }
 
 
   render() {
     return (
+
       <main className='App'>
         <header className='App-header'>
           <h1>Trelloyes!</h1>
