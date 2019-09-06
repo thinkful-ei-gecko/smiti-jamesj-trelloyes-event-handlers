@@ -98,11 +98,15 @@ class App extends Component {
         )
       }
     })
-    
+
     this.setState({
       lists: newListsArray,
       allCards: newAllCards
     })
+  }
+
+  handleDeleteCard = cardID => {
+    console.log('delete me!')
   }
 
   render() {
@@ -119,6 +123,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => this.state.allCards[id])}
               createRandomCard={(id) => this.handleRandomCard(id)}
+              deleteCard={(id) => this.handleRandomCard(id)}
             />
           ))}
         </div>
